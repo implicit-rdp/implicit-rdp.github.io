@@ -1,0 +1,23 @@
+.result {
+    margin: 5px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    padding: 0;
+    font-size: 0;
+}
+
+.method_name {
+    font-size: medium;
+}
+
+.failed_method_name {
+    font-size: medium;
+    color:#fca74d;
+}
+
+.success_method_name {
+    font-size: medium;
+    color:#7ed84e;
+}

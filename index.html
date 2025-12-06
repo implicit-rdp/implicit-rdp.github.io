@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+        content="We introduce ImplicitRDP, an end-to-end visual-force diffusion policy that integrates visual planning and reactive force control within a single network using Structural Slow-Fast Learning and Virtual-target-based Representation Regularization.">
+  <meta name="keywords" content="ImplicitRDP, Slow-Fast Policy, Visual-Force Policy Learning, Contact-Rich Manipulation, Force Control, Robot Learning, Diffusion Policy">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nerfies: Deformable Neural Radiance Fields</title>
+  <title>ImplicitRDP: An End-to-End Visual-Force Diffusion Policy with Structural Slow-Fast Learning</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -32,13 +32,17 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/custom.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  <script src="./static/js/open_in_new_tab.js"></script>
+  <script src="./static/js/sync_video.js"></script>
 </head>
 <body>
 
@@ -52,28 +56,19 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
+      <!-- <a class="navbar-item" href="https://keunhong.com">
       <span class="icon">
           <i class="fas fa-home"></i>
       </span>
-      </a>
+      </a> -->
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
-          More Research
+          Related Research
         </a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
+          <a class="navbar-item" href="https://reactive-diffusion-policy.github.io">
+            Reactive Diffusion Policy
           </a>
         </div>
       </div>
@@ -88,57 +83,76 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Nerfies: Deformable Neural Radiance Fields</h1>
+          <h1 class="title is-1 publication-title">
+            ImplicitRDP:
+            <br>
+            <span class="is-size-2">An End-to-End Visual-Force Diffusion Policy</span>
+            <br>
+            <span class="is-size-2">with Structural Slow-Fast Learning</span>
+          </h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://keunhong.com">Keunhong Park</a><sup>1</sup>,</span>
+              <a href="https://wendichen.me">Wendi Chen</a><sup>12</sup>,</span>
             <span class="author-block">
-              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
+              <a href="https://hanxue.me">Han Xue</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
+              Yi Wang<sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
+              <a href="https://uimicro.com">Fangyuan Zhou</a><sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
+              <a href="https://lyuj1998.github.io">Jun Lv</a><sup>13</sup>,
             </span>
             <span class="author-block">
-              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
+              Yang jin<sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
+              Shirun Tang<sup>3</sup>,
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://alvinwen428.github.io">Chuan Wen</a><sup>1\(\dagger\)</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.mvig.org">Cewu Lu</a><sup>123\(\dagger\)</sup>
             </span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of Washington,</span>
-            <span class="author-block"><sup>2</sup>Google Research</span>
+            <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University,</span>
+            <span class="author-block"><sup>2</sup>Shanghai Innovation Institute,</span>
+            <span class="author-block"><sup>3</sup>Noematrix Ltd.</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>\(\dagger\)</sup>Equal advising</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
+                <a href="javascript:void(0);"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
-                  <span>Paper</span>
+                  <span>Paper (TBA)</span>
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2011.12948"
+                <a href="javascript:void(0);"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
                   </span>
-                  <span>arXiv</span>
+                  <span>arXiv (TBA)</span>
                 </a>
               </span>
               <!-- Video Link. -->
-              <span class="link-block">
+              <!-- <span class="link-block">
                 <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
@@ -146,19 +160,19 @@
                   </span>
                   <span>Video</span>
                 </a>
-              </span>
+              </span> -->
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+                <a href="javascript:void(0);"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code</span>
+                  <span>Code (TBA)</span>
                   </a>
               </span>
               <!-- Dataset Link. -->
-              <span class="link-block">
+              <!-- <span class="link-block">
                 <a href="https://github.com/google/nerfies/releases/tag/0.1"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
@@ -166,6 +180,7 @@
                   </span>
                   <span>Data</span>
                   </a>
+              </span> -->
             </div>
 
           </div>
@@ -178,21 +193,23 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
-      </video>
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-        free-viewpoint
-        portraits.
+        <img id="teaser" src="./static/images/teaser.png" width="85%">
+      </h2>
+      <h2 class="subtitle has-text-centered">
+        ImplicitRDP is a unified <b>end-to-end</b> visual-force diffusion policy
+        that integrates visual planning and reactive force control. 
+        By leveraging <b>Structural Slow-Fast Learning (SSL)</b>,
+        it performs closed-loop adjustments at high frequency while maintaining temporal coherence.
+        Additionally, <b>Virtual-target-based Representation Regularization (VRR)</b>prevents modality collapse,
+        enabling robust performance in challenging contact-rich tasks.
       </h2>
     </div>
   </div>
 </section>
 
 
-<section class="hero is-light is-small">
+<!-- <section class="hero is-light is-small">
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
@@ -247,7 +264,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 <section class="section">
@@ -258,31 +275,26 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
+            Human-level contact-rich manipulation relies on the distinct roles of two key modalities: 
+            vision provides spatially rich but temporally slow global context, while force sensing captures rapid, high-frequency local contact dynamics. 
+            Integrating these signals is challenging due to their fundamental frequency and informational disparities. 
           </p>
           <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
+            In this work, we propose <b>ImplicitRDP</b>, a unified 
+            <b>end-to-end</b> visual-force diffusion policy that integrates visual planning and reactive force control within a single network. 
+            We introduce Structural Slow-Fast Learning,
+            a mechanism utilizing causal attention to simultaneously process asynchronous visual and force tokens, 
+            allowing the policy to perform <b>closed-loop adjustments</b> at the force frequency while maintaining the temporal coherence of action chunks.
           </p>
           <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
+            Furthermore, to mitigate modality collapse where end-to-end models fail to adjust the weights across different modalities, 
+            we propose Virtual-target-based Representation Regularization. 
+            This auxiliary objective maps force feedback into the same space as the action,
+            providing a <b>stronger, physics-grounded learning signal</b> than raw force prediction. 
+          </p>
+          <p>
+            Extensive experiments on contact-rich tasks demonstrate that ImplicitRDP significantly outperforms both vision-only and hierarchical baselines, 
+            achieving superior reactivity and success rates with a <b>streamlined training pipeline</b>.
           </p>
         </div>
       </div>
@@ -290,7 +302,7 @@
     <!--/ Abstract. -->
 
     <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
+    <!-- <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Video</h2>
         <div class="publication-video">
@@ -298,150 +310,436 @@
                   frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
       </div>
-    </div>
+    </div> -->
     <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4">Structural Slow-Fast Learning (SSL)</h3>
+        
+        <div class="content has-text-justified">
+          <p>
+            ImplicitRDP is an <b>end-to-end</b> policy that unifies low-frequency visual planning and high-frequency force control.
+            Instead of a handed-designed hierarchy like RDP, we utilize Structural Slow-Fast Learning (SSL). 
+            We concatenate slow visual tokens and fast force tokens into a unified sequence. 
+            By employing a <b>temporally causal structure</b> (GRUs and causal attention mask), 
+            the policy can perform closed-loop adjustments at the force frequency while maintaining the temporal coherence of action chunks.
+          </p>
+        </div>
+
+        <div class="is-vcentered has-text-centered">
+          <img src="./static/images/network_architecture.png" alt="Network Architecture" width="60%">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Fig. 1: <b>Network Architecture.</b>
+            We enforce a temporally causal structure using a GRU for force signal encoding 
+            and a causal attention mask for action-force interaction.
+            This design enables the model to effectively process asynchronous visual and force tokens simultaneously.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4">Virtual-target-based Representation Regularization (VRR)</h3>
+        
+        <div class="content has-text-justified">
+          <p>
+            To mitigate modality collapse where end-to-end models ignore force feedback,
+            we introduce Virtual-target-based Representation Regularization (VRR). 
+            Rather than predicting raw future forces, we train the model to predict a "virtual target" derived from compliance control theory. 
+            This maps force feedback into the <b>same space as the action</b> and <b>adaptively weights</b> the loss based on force magnitude, 
+            forcing the model to internally align force feedback with motion planning.
+          </p>
+        </div>
+
+        <div class="is-vcentered has-text-centered">
+          <img src="./static/images/virtual_target.png" alt="Virtual Target Representation" width="60%">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Fig. 2: <b>Virtual Target.</b>
+            The virtual target represents the trajectory position that the robot intends to track under a specific stiffness.
+            We apply adaptive stiffness to weight high-force contact events more heavily, 
+            encouraging the policy to attend to critical force feedback.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 
 <section class="section">
   <div class="container is-max-desktop">
-
     <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Experiments</h2>
 
-      <!-- Visual Effects. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
+        <h3 class="title is-4">Q1: Comparison with Baselines</h3>
+        <div class="content has-text-justified">
           <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
+            We compare ImplicitRDP against a vision-only method (DP) and a hierarchical baseline (RDP).
+            Experiments on Box Flipping and Switch Toggling demonstrate that our end-to-end approach significantly outperforms baselines.
+            While DP <span style="color: #fca74d;">fails to regulate force</span> and RDP <span style="color: #fca74d;">struggles with contact precision</span>,
+            ImplicitRDP <span style="color: #7ed84e;">achieves the highest success rates</span> by 
+            effectively integrating visual planning with reactive force control.
           </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
         </div>
-      </div>
-      <!--/ Visual Effects. -->
 
-      <!-- Matting. -->
-      <div class="column">
-        <h2 class="title is-3">Matting</h2>
+        <div class="content has-text-centered" style="margin-bottom: 0px;">
+          <p>
+            TABLE I: Success Rate Compared with Baseline Methods
+          </p>
+        </div>
         <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
-            </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
-        <div class="content has-text-justified">
-          <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
-          </p>
-        </div>
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
+          <div class="column is-four-fifths">
+            <div class="table-container">
+              <table class="table is-fullwidth is-striped">
+                <thead>
+                  <tr>
+                    <th class="has-text-centered">Method</th>
+                    <th class="has-text-centered">Box Flipping</th>
+                    <th class="has-text-centered">Switch Toggling</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="has-text-centered">DP</td>
+                    <td class="has-text-centered">0/20</td>
+                    <td class="has-text-centered">8/20</td>
+                  </tr>
+                  <tr>
+                    <td class="has-text-centered">RDP</td>
+                    <td class="has-text-centered">16/20</td>
+                    <td class="has-text-centered">10/20</td>
+                  </tr>
+                  <tr style="font-weight: bold; background-color: #f0f8ff;">
+                    <td class="has-text-centered">ImplicitRDP (Ours)</td>
+                    <td class="has-text-centered">18/20</td>
+                    <td class="has-text-centered">18/20</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
           </div>
         </div>
-        <br/>
-        <!--/ Interpolating. -->
 
-        <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
+        <div class="columns is-centered">
+            <div class="column is-4 has-text-centered result">
+              <video id="box-1—dp" class="box-1" controls muted playsinline width="100%"><source src="./static/videos/box-1-dp.mp4" type="video/mp4"></video>
+              <span id="box-1—dp_begin" class="is-size-6 method_name">
+                DP
+              </span>
+              <span id="box-1—dp_end" class="is-size-6 failed_method_name" style="display: none;">
+                DP, Large Force
+              </span>
+            </div>
+            <div class="column is-4 has-text-centered result">
+              <video id="box-1—rdp" class="box-1" controls muted playsinline width="100%"><source src="./static/videos/box-1-rdp.mp4" type="video/mp4"></video>
+              <span id="box-1—rdp_begin" class="is-size-6 method_name">
+                RDP
+              </span>
+              <span id="box-1—rdp_end" class="is-size-6 success_method_name" style="display: none;">
+                RDP, Success
+              </span>
+            </div>
+            <div class="column is-4 has-text-centered result">
+              <video id="box-1—implicit-rdp" class="box-1" controls muted playsinline width="100%"><source src="./static/videos/box-1-implicit-rdp.mp4" type="video/mp4"></video>
+              <span id="box-1—implicit-rdp_begin" class="is-size-6 method_name">
+                ImplicitRDP
+              </span>
+              <span id="box-1—implicit-rdp_end" class="is-size-6 success_method_name" style="display: none;">
+                ImplicitRDP, Success
+              </span>
+            </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-4 has-text-centered result">
+            <video id="switch-1—dp" class="switch-1" controls muted playsinline width="100%"><source src="./static/videos/switch-1-dp.mp4" type="video/mp4"></video>
+            <span id="switch-1—dp_begin" class="is-size-6 method_name">
+              DP
+            </span>
+            <span id="switch-1—dp_end" class="is-size-6 failed_method_name" style="display: none;">
+              DP, Lose Contact
+            </span>
+          </div>
+          <div class="column is-4 has-text-centered result">
+            <video id="switch-1—rdp" class="switch-1" controls muted playsinline width="100%"><source src="./static/videos/switch-1-rdp.mp4" type="video/mp4"></video>
+            <span id="switch-1—rdp_begin" class="is-size-6 method_name">
+              RDP
+            </span>
+            <span id="switch-1—rdp_end" class="is-size-6 failed_method_name" style="display: none;">
+              RDP, Wrong Contact Point
+            </span>
+          </div>
+          <div class="column is-4 has-text-centered result">
+            <video id="switch-1—implicit-rdp" class="switch-1" controls muted playsinline width="100%"><source src="./static/videos/switch-1-implicit-rdp.mp4" type="video/mp4"></video>
+            <span id="switch-1—implicit-rdp_begin" class="is-size-6 method_name">
+              ImplicitRDP
+            </span>
+            <span id="switch-1—implicit-rdp_end" class="is-size-6 success_method_name" style="display: none;">
+              ImplicitRDP, Success
+            </span>
+          </div>
+        </div>
+        <br>
+
+        <h3 class="title is-4">Q2: Effectiveness of Closed-Loop Control</h3>
         <div class="content has-text-justified">
           <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
+            To validate the effectiveness of Structural Slow-Fast Learning (SSL),
+            we compare the full model against open-loop variants. 
+            Removing SSL leads to a <span style="color: #fca74d;">significant performance drop</span>,
+            especially in tasks requiring sustained force maintenance like Box Flipping.
+            The results confirm that the closed-loop force control enabled by SSL 
+            is <span style="color: #7ed84e;">critical for contact-rich manipulation</span>.
           </p>
         </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
+
+        <div class="content has-text-centered" style="margin-bottom: 0px;">
+          <p>
+            TABLE II: Comparison Between Open-Loop and Closed-Loop Control
+          </p>
         </div>
-        <!--/ Re-rendering. -->
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <div class="table-container">
+              <table class="table is-fullwidth is-striped">
+                <thead>
+                  <tr>
+                    <th class="has-text-centered">Method</th>
+                    <th class="has-text-centered">Box Flipping</th>
+                    <th class="has-text-centered">Switch Toggling</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="has-text-centered">ImplicitRDP w.o. SSL & VRR</td>
+                    <td class="has-text-centered">6/20</td>
+                    <td class="has-text-centered">5/20</td>
+                  </tr>
+                  <tr>
+                    <td class="has-text-centered">ImplicitRDP w.o. SSL</td>
+                    <td class="has-text-centered">4/20</td>
+                    <td class="has-text-centered">15/20</td>
+                  </tr>
+                  <tr style="font-weight: bold; background-color: #f0f8ff;">
+                    <td class="has-text-centered">ImplicitRDP (Ours)</td>
+                    <td class="has-text-centered">18/20</td>
+                    <td class="has-text-centered">18/20</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-4 has-text-centered result">
+            <video id="box-2—no-ssl-vrr" class="box-2" controls muted playsinline width="100%"><source src="./static/videos/box-2-no-ssl-vrr.mp4" type="video/mp4"></video>
+            <span id="box-2—no-ssl-vrr_begin" class="is-size-6 method_name">
+              ImplicitRDP w.o. SSL & VRR
+            </span>
+            <span id="box-2—no-ssl-vrr_end" class="is-size-6 failed_method_name" style="display: none;">
+              ImplicitRDP w.o. SSL & VRR, Large Force
+            </span>
+          </div>
+          <div class="column is-4 has-text-centered result">
+            <video id="box-2—no-ssl" class="box-2" controls muted playsinline width="100%"><source src="./static/videos/box-2-no-ssl.mp4" type="video/mp4"></video>
+            <span id="box-2—no-ssl_begin" class="is-size-6 method_name">
+              ImplicitRDP w.o. SSL
+            </span>
+            <span id="box-2—no-ssl_end" class="is-size-6 failed_method_name" style="display: none;">
+              ImplicitRDP w.o. SSL, Large Force
+            </span>
+          </div>
+          <div class="column is-4 has-text-centered result">
+            <video id="box-2—implicit-rdp" class="box-2" controls muted playsinline width="100%"><source src="./static/videos/box-2-implicit-rdp.mp4" type="video/mp4"></video>
+            <span id="box-2—implicit-rdp_begin" class="is-size-6 method_name">
+              ImplicitRDP
+            </span>
+            <span id="box-2—implicit-rdp_end" class="is-size-6 success_method_name" style="display: none;">
+              ImplicitRDP, Success
+            </span>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-4 has-text-centered result">
+            <video id="switch-2—no-ssl-vrr" class="switch-2" controls muted playsinline width="100%"><source src="./static/videos/switch-2-no-ssl-vrr.mp4" type="video/mp4"></video>
+            <span id="switch-2—no-ssl-vrr_begin" class="is-size-6 method_name">
+              ImplicitRDP w.o. SSL & VRR
+            </span>
+            <span id="switch-2—no-ssl-vrr_end" class="is-size-6 failed_method_name" style="display: none;">
+              ImplicitRDP w.o. SSL & VRR, Lose Contact
+            </span>
+          </div>
+          <div class="column is-4 has-text-centered result">
+            <video id="switch-2—no-ssl" class="switch-2" controls muted playsinline width="100%"><source src="./static/videos/switch-2-no-ssl.mp4" type="video/mp4"></video>
+            <span id="switch-2—no-ssl_begin" class="is-size-6 method_name">
+              ImplicitRDP w.o. SSL
+            </span>
+            <span id="switch-2—no-ssl_end" class="is-size-6 success_method_name" style="display: none;">
+              ImplicitRDP w.o. SSL, Success
+            </span>
+          </div>
+          <div class="column is-4 has-text-centered result">
+            <video id="switch-2—implicit-rdp" class="switch-2" controls muted playsinline width="100%"><source src="./static/videos/switch-2-implicit-rdp.mp4" type="video/mp4"></video>
+            <span id="switch-2—implicit-rdp_begin" class="is-size-6 method_name">
+              ImplicitRDP
+            </span>
+            <span id="switch-2—implicit-rdp_end" class="is-size-6 success_method_name" style="display: none;">
+              ImplicitRDP, Success
+            </span>
+          </div>
+        </div>
+        <br>
+
+        <h3 class="title is-4">Q3: Choice of Auxiliary Task</h3>
+        <div class="content has-text-justified">
+          <p>
+            We investigate the impact of Virtual-target-based Representation Regularization (VRR) compared to standard Force Prediction or no auxiliary task.
+            VRR consistently yields the best performance while other auxiliary settings
+            fail to effectively utilize high-frequency force signals which results in <span style="color: #fca74d;">untimely loss of contact</span>.
+          </p>
+        </div>
+
+        <div class="content has-text-centered" style="margin-bottom: 0px;">
+          <p>
+            TABLE III: Comparison of Different Auxiliary Tasks
+          </p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <div class="table-container">
+              <table class="table is-fullwidth is-striped">
+                <thead>
+                  <tr>
+                    <th class="has-text-centered">Auxiliary Task</th>
+                    <th class="has-text-centered">Box Flipping</th>
+                    <th class="has-text-centered">Switch Toggling</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="has-text-centered">None</td>
+                    <td class="has-text-centered">6/20</td>
+                    <td class="has-text-centered">6/20</td>
+                  </tr>
+                  <tr>
+                    <td class="has-text-centered">Force Prediction</td>
+                    <td class="has-text-centered">8/20</td>
+                    <td class="has-text-centered">10/20</td>
+                  </tr>
+                  <tr style="font-weight: bold; background-color: #f0f8ff;">
+                    <td class="has-text-centered">Virtual Target Prediction (Ours)</td>
+                    <td class="has-text-centered">18/20</td>
+                    <td class="has-text-centered">18/20</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="content has-text-justified">
+          <p>
+            As visualized in the attention map below, VRR encourages the network to 
+            <span style="color: #7ed84e;">adaptively attend</span> to force tokens during contact phases,
+            whereas models without VRR fail to utilize force information effectively.
+          </p>
+        </div>
+
+        <div class="is-vcentered has-text-centered">
+          <img src="./static/images/attention.png" alt="Attention Weight Visualization" width="60%">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Fig 3. <b>Attention Weight Visualization.</b>
+            We visualize the summed attention weights of visual tokens and force tokens from the first transformer layer in the switch toggling task.
+            VRR enables adaptive attention to different modalities during different phases.
+          </p>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-4 has-text-centered result">
+            <video id="box-3—no-vrr" class="box-3" controls muted playsinline width="100%"><source src="./static/videos/box-3-no-vrr.mp4" type="video/mp4"></video>
+            <span id="box-3—no-vrr_begin" class="is-size-6 method_name">
+              None
+            </span>
+            <span id="box-3—no-vrr_end" class="is-size-6 failed_method_name" style="display: none;">
+              None, Lose Contact
+            </span>
+          </div>
+          <div class="column is-4 has-text-centered result">
+            <video id="box-3—fp" class="box-3" controls muted playsinline width="100%"><source src="./static/videos/box-3-fp.mp4" type="video/mp4"></video>
+            <span id="box-3—fp_begin" class="is-size-6 method_name">
+              Force Prediction
+            </span>
+            <span id="box-3—fp_end" class="is-size-6 failed_method_name" style="display: none;">
+              Force Prediction, Lose Contact
+            </span>
+          </div>
+          <div class="column is-4 has-text-centered result">
+            <video id="box-3—implicit-rdp" class="box-3" controls muted playsinline width="100%"><source src="./static/videos/box-3-implicit-rdp.mp4" type="video/mp4"></video>
+            <span id="box-3—implicit-rdp_begin" class="is-size-6 method_name">
+              Virtual Target Prediction
+            </span>
+            <span id="box-3—implicit-rdp_end" class="is-size-6 success_method_name" style="display: none;">
+              Virtual Target Prediction, Success
+            </span>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-4 has-text-centered result">
+            <video id="switch-3—no-vrr" class="switch-3" controls muted playsinline width="100%"><source src="./static/videos/switch-3-no-vrr.mp4" type="video/mp4"></video>
+            <span id="switch-3—no-vrr_begin" class="is-size-6 method_name">
+              None
+            </span>
+            <span id="switch-3—no-vrr_end" class="is-size-6 failed_method_name" style="display: none;">
+              None, Lose Contact
+            </span>
+          </div>
+          <div class="column is-4 has-text-centered result">
+            <video id="switch-3—fp" class="switch-3" controls muted playsinline width="100%"><source src="./static/videos/switch-3-fp.mp4" type="video/mp4"></video>
+            <span id="switch-3—fp_begin" class="is-size-6 method_name">
+              Force Prediction
+            </span>
+            <span id="switch-3—fp_end" class="is-size-6 failed_method_name" style="display: none;">
+              Force Prediction, Lose Contact
+            </span>
+          </div>
+          <div class="column is-4 has-text-centered result">
+            <video id="switch-3—implicit-rdp" class="switch-3" controls muted playsinline width="100%"><source src="./static/videos/switch-3-implicit-rdp.mp4" type="video/mp4"></video>
+            <span id="switch-3—implicit-rdp_begin" class="is-size-6 method_name">
+              Virtual Target Prediction
+            </span>
+            <span id="switch-3—implicit-rdp_end" class="is-size-6 success_method_name" style="display: none;">
+              Virtual Target Prediction, Success
+            </span>
+          </div>
+        </div>
 
       </div>
     </div>
-    <!--/ Animation. -->
-
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Concurrent Work. -->
-
   </div>
 </section>
 
-
-<section class="section" id="BibTeX">
+<!-- <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <pre><code>@article{park2021nerfies,
@@ -451,34 +749,16 @@
   year      = {2021},
 }</code></pre>
   </div>
-</section>
+</section> -->
 
 
 <footer class="footer">
   <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
           <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
+            This website is modified from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies Template</a>.
           </p>
         </div>
       </div>

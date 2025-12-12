@@ -348,6 +348,28 @@
             This design enables the model to effectively process asynchronous visual and force tokens simultaneously.
           </p>
         </div>
+        
+        <div class="content has-text-justified">
+          <p>
+            To enable <b>high-frequency closed-loop control</b> within an action chunk, we employ a <b>consistent inference mechanism</b>. 
+            Since standard diffusion sampling is stochastic, independent sampling at each step would lead to jittery, inconsistent actions. 
+            We address this by using a deterministic DDIM sampler with <b>cached initial noise and slow visual tokens</b>.
+            At each high-frequency control step, we only update the fast force tokens and rerun the denoising process on the extended noisy action sequence.
+            This ensures the generated trajectory remains smooth and consistent while reacting to new force feedback in real-time.
+          </p>
+        </div>
+
+        <div class="is-vcentered has-text-centered">
+          <img src="./static/images/consistent_inference.png" alt="Consistent Inference Algorithm" width="45%">
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            Algorithm 1: <b>Consistent Inference in ImplicitRDP.</b>
+            We perform slow observation encoding and noise sampling only once at the beginning of a chunk. 
+            During the fast loop, we reuse the cached noise and slow context while updating fast force tokens to generate the latest reactive action.
+          </p>
+        </div>
+
       </div>
     </div>
 
